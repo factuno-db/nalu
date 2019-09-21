@@ -51,7 +51,13 @@ public interface IsController<V, W> {
   @NaluInternalUse
   void onDetach();
 
-  String mayStop();
+  /**
+   * This method will be called in case a routing occurs and this instance is
+   * a currently attached controller
+   *
+   * @param confirmHandler call the <code>continueRouting()</code> to continue routing or <code>abortRouting()</code> to abort routing
+   */
+  void mayStop(ConfirmHandler confirmHandler);
 
   /**
    * internal framework method! Will be called by the framdework after the

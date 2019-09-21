@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.simpleapplication02.client.ui.content.detail;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.ConfirmHandler;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.simpleapplication02.client.NaluSimpleApplicationContext;
 import com.github.nalukit.nalu.simpleapplication02.client.data.model.dto.Person;
@@ -37,8 +38,12 @@ public class DetailController
   }
 
   @Override
-  public String mayStop() {
-    return this.component.isDirty() ? "Would youlike to cancel your edits?" : null;
+  public void mayStop(ConfirmHandler handler) {
+    if (this.component.isDirty()) {
+      handler.abortRouting();
+    } else {
+      handler.continueRouting();
+    }
   }
 
   @Override

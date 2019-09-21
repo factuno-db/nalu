@@ -26,11 +26,11 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
                IsCompositeComponent.Controller {
 
   /* component of the controller */
-  private   String               parentClassName;
-  /* component of the controller */
   protected V                    component;
   /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
+  /* component of the controller */
+  private   String               parentClassName;
   /* flag, if the controller is cached or not */
   private   boolean              cached;
   /* flag, if the controller is cached or not in Scope GLOBAL! */
@@ -113,9 +113,14 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     this.handlerRegistrations = new HandlerRegistrations();
   }
 
-  @Override
-  public String mayStop() {
-    return null;
+  /**
+   * This method will be called in case a routing occurs and this instance is
+   * a currently attached controller
+   *
+   * @param confirmHandler call the <code>continueRouting()</code> to continue routing or <code>abortRouting()</code> to abort routing
+   */
+  public void mayStop(ConfirmHandler confirmHandler) {
+    confirmHandler.continueRouting();
   }
 
   /**
